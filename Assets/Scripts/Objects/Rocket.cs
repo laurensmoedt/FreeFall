@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraMovement : MonoBehaviour
+public class Rocket : MonoBehaviour
 {
-    [SerializeField]
-    GameObject player;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -16,7 +13,6 @@ public class CameraMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = new Vector3(transform.position.x, GameObject.Find("Player").transform.position.y +8, transform.position.z);
-
+        transform.Translate(0, 5 * Time.deltaTime, 0, Space.Self);
     }
 }
