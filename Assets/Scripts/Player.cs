@@ -42,6 +42,14 @@ public class Player : MonoBehaviour
         CalculateBoundries();
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Dangerous_Object")
+        {
+            UnityEditor.EditorApplication.ExecuteMenuItem("Edit/Play");
+        }
+    }
+
     private void CalculateBoundries()
     {
         Vector3 currentPosition = transform.position;

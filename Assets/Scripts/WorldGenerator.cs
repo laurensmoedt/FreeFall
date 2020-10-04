@@ -4,57 +4,54 @@ using UnityEngine;
 
 public class WorldGenerator : MonoBehaviour
 {
+    public GameObject[] AllGameObjects = new GameObject[4];
 
-    public GameObject IslandPrefab;
-    public GameObject CoinPrefab;
+    private GameObject randomObject;
 
-    public int numberOfIsland;
-    public int numberOfCoins;
+    public int numberOfObjects; //number of objects spawned in 100f on Y axis
 
-    private float islandY;
-    private float coinY;
+    private float firstObjectY;
+    private float objectY;
+    private float objectStep;
+
+    private float spawnLocation;
 
     // Start is called before the first frame update
     void Start()
     {
-        
-        numberOfIsland = Random.Range(5, 10);
-        numberOfCoins = Random.Range(5, 15);
-
-        islandY = 0;
-        coinY = 0;
-        InstantiateObject();
+        spawnLocation = 50;
     }
 
     // Update is called once per frame
     void Update()
     {
-        // call this when player reaches certain point
-        //InstantiateObject();
+        //spawns objects when player reaches a certain point on Y axis
+        if (GameObject.Find("Player").transform.position.y < spawnLocation)
+        {
+            objectStep = 0; //resets Y value for the next random object
+            firstObjectY = GameObject.Find("Player").transform.position.y - 50; //the first location for the objects to spawn
+            numberOfObjects = 20;
+            objectY = 100 / numberOfObjects;    //object devided between 100f on Y axis
+            for (int i = 0; i < numberOfObjects; i++)
+            {
+                InstantiateObject();
+            }
+            spawnLocation -= 100; // sets new spawn location 
+        }
     }
 
     private void InstantiateObject()
     {
-        for (int i = 0; i < numberOfIsland; i++)
-        {
-            float x = Random.Range(-25, 25);
-            float y = Random.Range(0 + islandY, 10 + islandY);
-            float z = Random.Range(-25, 25);
-            Vector3 pos = transform.position + new Vector3(x, y, z);
+        randomObject = AllGameObjects[Random.Range(0, AllGameObjects.Length)]; //picks a random object out of the list
 
-            Instantiate(IslandPrefab, pos, Quaternion.identity);
-            islandY += 10;
-        }
+        //sets a new Vector3 for the position of the random choosen object
+        float x = Random.Range(-10 + randomObject.transform.localScale.x / 2, 10 + randomObject.transform.localScale.x / 2);    
+        float y = firstObjectY - objectStep;
+        float z = Random.Range(-10 + randomObject.transform.localScale.z / 2, 10 + randomObject.transform.localScale.z / 2);
+        Vector3 pos = new Vector3(x, y, z); 
 
-        for (int i = 0; i < numberOfCoins; i++)
-        {
-            float x = Random.Range(-6, 6);
-            float y = Random.Range(0 + coinY, 10 + coinY);
-            float z = Random.Range(-4, 4);
-            Vector3 pos = transform.position + new Vector3(x, y, z);
-
-            Instantiate(CoinPrefab, pos, Quaternion.identity);
-            coinY += 10;
-        }
+        //instantiate the random object with position and rotation onto the scene
+        Instantiate(randomObject, pos, Quaternion.identity);
+        objectStep += objectY; // adds Y value for the next random object
     }
 }

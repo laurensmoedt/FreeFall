@@ -15,16 +15,24 @@ public class Enemy : MonoBehaviour
         transform.Rotate(0, randomDegree, 0);
 
         //set enemy backwards relative to the rotation
-        transform.Translate(0, 0, -10);
+        transform.Translate(0, 0, -20);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(GameObject.Find("Player").transform.position.y < this.transform.position.y + 50)
+        {
+            MoveObject();
+        }
+        
+        DestroyObject();
+    }
+
+    public void MoveObject()
+    {
         //move forward relative to rotation
         transform.Translate(0, 0, 5 * Time.deltaTime, Space.Self);
-
-        DestroyObject();
     }
 
     private void DestroyObject()
