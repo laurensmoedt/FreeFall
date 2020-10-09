@@ -137,7 +137,11 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 0
   hdriSky:
+<<<<<<< HEAD
     m_OverrideState: 0
+=======
+    m_OverrideState: 1
+>>>>>>> f90b5b884b5cf03c356176a1c23d165b21b2c38d
     m_Value: {fileID: 0}
   enableBackplate:
     m_OverrideState: 0

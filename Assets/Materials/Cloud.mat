@@ -32,9 +32,15 @@ Material:
     MotionVector: User
   disabledShaderPasses:
   - TransparentBackface
+<<<<<<< HEAD
   - TransparentDepthPostpass
   - TransparentDepthPrepass
   - MOTIONVECTORS
+=======
+  - MOTIONVECTORS
+  - TransparentDepthPrepass
+  - TransparentDepthPostpass
+>>>>>>> f90b5b884b5cf03c356176a1c23d165b21b2c38d
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs: []

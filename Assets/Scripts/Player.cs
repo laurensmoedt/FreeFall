@@ -25,9 +25,15 @@ public class Player : MonoBehaviour
 
         controller = GetComponent<CharacterController>();
 
+<<<<<<< HEAD
         gravityScale = 2f;
 
         Boundaries();
+=======
+        gravityScale = 1f;
+
+        Boundries();
+>>>>>>> f90b5b884b5cf03c356176a1c23d165b21b2c38d
     }
 
     // Update is called once per frame
@@ -35,7 +41,10 @@ public class Player : MonoBehaviour
     {
         moveDirection = new Vector3(Input.GetAxis("Horizontal") * movementSpeed, 0f, Input.GetAxis("Vertical") * movementSpeed);
 
+<<<<<<< HEAD
         gravityScale += 0.002f;
+=======
+>>>>>>> f90b5b884b5cf03c356176a1c23d165b21b2c38d
         moveDirection.y = moveDirection.y + (Physics.gravity.y * gravityScale);
 
         controller.Move(moveDirection * Time.deltaTime);
@@ -61,7 +70,11 @@ public class Player : MonoBehaviour
         transform.position = currentPosition;
     }
 
+<<<<<<< HEAD
     private void Boundaries()
+=======
+    private void Boundries()
+>>>>>>> f90b5b884b5cf03c356176a1c23d165b21b2c38d
     {
         float camDistance = Vector3.Distance(transform.position, Camera.main.transform.position);
         Vector3 bottomCorners = Camera.main.ViewportToWorldPoint(new Vector3(0f, 0f, camDistance));

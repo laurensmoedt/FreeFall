@@ -56,7 +56,11 @@
       "depth": 0,
       "source": "local",
       "dependencies": {
+<<<<<<< HEAD
         "com.unity.render-pipelines.core": "7.5.1"
+=======
+        "com.unity.render-pipelines.core": "7.3.1"
+>>>>>>> f90b5b884b5cf03c356176a1c23d165b21b2c38d
       }
     },
     "com.unity.shadergraph": {
