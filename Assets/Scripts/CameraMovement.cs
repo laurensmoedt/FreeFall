@@ -1,22 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 
 public class CameraMovement : MonoBehaviour
 {
     [SerializeField]
-    GameObject player;
+    Transform lookAt = null;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private Vector3 offset = new Vector3(0,8,0);
 
-    // Update is called once per frame
     void Update()
     {
-        transform.position = new Vector3(transform.position.x, GameObject.Find("Player").transform.position.y +8, transform.position.z);
+        Vector3 playerPos = lookAt.transform.position + offset;
 
+        transform.position = new Vector3(playerPos.x / 5 , playerPos.y, playerPos.z / 5);
     }
 }

@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class Island : MonoBehaviour
 {
-    // Start is called before the first frame update
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
+        SpawnObject();
         DestroyObject();
     }
 
@@ -23,5 +22,11 @@ public class Island : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    private void SpawnObject()
+    {
+        // spawn tree and rock on Island with random location
+
     }
 }
