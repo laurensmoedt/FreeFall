@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 3629740023866763880}
   - component: {fileID: 428042931683173837}
   - component: {fileID: 2455659777674924295}
+  - component: {fileID: 6141340106996590534}
   m_Layer: 0
-  m_Name: Object_FloatingIsland (1)
-  m_TagString: Untagged
+  m_Name: Object_FloatingIsland4
+  m_TagString: Dangerous_Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -86,6 +87,34 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &6141340106996590534
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4113121260851491026}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 289301614986012343, guid: 989ea9cff95bbab49b6c1f7d75aa0fd4, type: 3}
+--- !u!64 &7114934000429418299
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6415799743903486045}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 7653531367769054663, guid: ab4ff98d7eab11644924f8a4c18bb6fe, type: 3}
 --- !u!1001 &6181214738109033740
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -170,6 +199,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab4ff98d7eab11644924f8a4c18bb6fe, type: 3}
+--- !u!1 &6415799743903486045 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ab4ff98d7eab11644924f8a4c18bb6fe,
+    type: 3}
+  m_PrefabInstance: {fileID: 6181214738109033740}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5927492970039773927 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ab4ff98d7eab11644924f8a4c18bb6fe,

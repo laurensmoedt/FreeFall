@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 7464570544056448342}
   - component: {fileID: 5780546907304311539}
   - component: {fileID: 8636874396739030585}
+  - component: {fileID: 7344973815508316815}
   m_Layer: 0
   m_Name: Object_FloatingIsland
-  m_TagString: Untagged
+  m_TagString: Dangerous_Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -79,3 +80,17 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &7344973815508316815
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7844333701573144556}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 289301614986012343, guid: 989ea9cff95bbab49b6c1f7d75aa0fd4, type: 3}

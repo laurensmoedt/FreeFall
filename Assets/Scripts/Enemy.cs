@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    private GameObject player;
 
     void Start()
     {
-
+        player = GameObject.FindGameObjectWithTag("Player");
         //random rotation
         int randomDegree = Random.Range(0,360);
         transform.Rotate(0, randomDegree, 0);
@@ -18,7 +19,7 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        if(GameObject.Find("Player").transform.position.y < this.transform.position.y + 50)
+        if(player.transform.position.y < this.transform.position.y + 50)
         {
             MoveObject();
         }

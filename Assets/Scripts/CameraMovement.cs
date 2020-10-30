@@ -5,11 +5,16 @@ using UnityEngine.Animations;
 
 public class CameraMovement : MonoBehaviour
 {
-    [SerializeField]
-    Transform lookAt = null;
+    private Transform lookAt;
+    private GameObject playerObject;
 
     private Vector3 offset = new Vector3(0,8,0);
 
+    private void Awake()
+    {
+        playerObject = GameObject.FindGameObjectWithTag("Player");
+        lookAt = playerObject.GetComponent<Transform>();
+    }
     void Update()
     {
         Vector3 playerPos = lookAt.transform.position + offset;

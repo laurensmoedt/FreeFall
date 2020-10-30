@@ -7,11 +7,16 @@ using System.Security.Cryptography;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    // Ingame coin amount
     public int CoinCount = 0;
+
+    // Player score
+    public int score = 0;
+    private float scorePoint;
 
     private float Movespeed = 2f;
     private float maxMoveSpeed = 5f;
@@ -34,18 +39,51 @@ public class Player : MonoBehaviour
 
     // Time Character Power
     private float fixedDeltaTime;
-    private string CurrentCharacter;
     private float TimepowerTime = 10f;
     private float Timetimer = 1f;
     private bool TimePowerAvailable = true;
 
+    // UI
+    private Slider powerBar;
+    private float powerBarValue = 10f;
+    private GameObject IngameUIObject;
+    public IngameUI IngameUI;
+
+    // Data Manager
+    private GameObject dataManagerObject;
+    public DataManager dataManager;
+    private string currentCharacter;
+
     void Start()
     {
+        //UI
+        IngameUIObject = GameObject.Find("UI");
+        IngameUI = IngameUIObject.GetComponent<IngameUI>();
+
+        //Data Manger
+        dataManagerObject = GameObject.Find("DataManager");
+        dataManager = dataManagerObject.GetComponent<DataManager>();
+
         rb = this.GetComponent<Rigidbody>();
-        
-        // TODO: verkrijg de huidige character via Json en geef een value mee aan de Power() function
+
         this.fixedDeltaTime = Time.fixedDeltaTime;
-        CurrentCharacter = "MagnetCharacter";
+
+        dataManager.Load();
+        currentCharacter = dataManager.data.currentCharacter;
+
+        // UI power bar
+        powerBar = GameObject.Find("PowerBar").GetComponent<Slider>();
+        powerBar.minValue = 0f;
+
+        if (currentCharacter == "MagnetCharacter")
+            powerBar.maxValue = 5f;
+        else if (currentCharacter == "TimeCharacter")
+            powerBar.maxValue = 10f;
+        powerBar.value = powerBarValue;
+
+        // Player Score
+        scorePoint = this.transform.position.y - 50;
+
         Boundries();
     }
 
@@ -56,16 +94,18 @@ public class Player : MonoBehaviour
 
         // Get the player input for the player movement
         movement = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        
+
+        // Player movement
+        Movement(movement);
+
         // Calculate player movement boundries on screen
         CalculateBoundries();
-        // Controls the power of the character that is selected
-        Power(CurrentCharacter);
-    }
 
-    private void FixedUpdate()
-    {
-        Movement(movement);
+        // Controls the power of the character that is selected
+        Power(currentCharacter);
+
+        // Add a Score
+        AddScore();
     }
 
     void Movement(Vector3 direction)
@@ -77,11 +117,12 @@ public class Player : MonoBehaviour
         rb.AddForce(direction * Movespeed);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision other)
     {
-        if (other.tag == "Dangerous_Object")
+        if (other.gameObject.tag == "Dangerous_Object")
         {
-            UnityEditor.EditorApplication.ExecuteMenuItem("Edit/Play");
+            SaveData();
+            IngameUI.RestartScreen();
         }
     }
 
@@ -107,11 +148,6 @@ public class Player : MonoBehaviour
 
         minZ = bottomCorners.z;
         maxZ = topCorners.z;
-    }
-
-    private void OnGUI()
-    {
-        GUI.Label(new Rect(10, 10, 100, 20), "Coins: " + CoinCount);
     }
 
     private void Power(string CurrentCharacter)
@@ -143,6 +179,9 @@ public class Player : MonoBehaviour
                     magnetPowerTime = 5f;
                 }
             }
+            // UI power bar
+            powerBarValue = magnetPowerTime;
+            powerBar.value = powerBarValue;
         }
 
         // Time Power for the Time Character
@@ -170,10 +209,14 @@ public class Player : MonoBehaviour
                 }
             }
             Time.fixedDeltaTime = this.fixedDeltaTime * Time.timeScale;
+
+            // UI power bar
+            powerBarValue = TimepowerTime;
+            powerBar.value = powerBarValue;
         }
     }
 
-    void GetCoinsInactiveInRadius()
+    private void GetCoinsInactiveInRadius()
     {
         Coins = GameObject.FindGameObjectsWithTag("Coin");
 
@@ -191,5 +234,29 @@ public class Player : MonoBehaviour
                 coin.position = Vector3.MoveTowards(coin.position, transform.position, 0.5f);
             }
         }
+    }
+
+    private void AddScore()
+    {
+        if (this.transform.position.y < scorePoint)
+        {
+            score++;
+            scorePoint = this.transform.position.y - WorldGenerator.objectY;
+        }
+    }
+
+    private void SaveData()
+    {
+        // Save coins to json
+        dataManager.data.coins += CoinCount;
+
+        // Save Highscore to json
+        if (score > dataManager.data.highScore)
+        {
+            dataManager.data.highScore = score;
+            Debug.Log("new highscore!!!!" + score);
+        }
+
+        dataManager.Save();
     }
 }

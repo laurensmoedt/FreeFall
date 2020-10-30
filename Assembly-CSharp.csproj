@@ -63,13 +63,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Audio\AudioManager.cs" />
+    <Compile Include="Assets\Scripts\Audio\Sound.cs" />
     <Compile Include="Assets\Scripts\CameraMovement.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
+    <Compile Include="Assets\Scripts\HighscoreTable.cs" />
     <Compile Include="Assets\Scripts\Objects\Coin.cs" />
     <Compile Include="Assets\Scripts\Objects\Island.cs" />
     <Compile Include="Assets\Scripts\Objects\Rocket.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
+    <Compile Include="Assets\Scripts\SaveLoadData\DataManager.cs" />
+    <Compile Include="Assets\Scripts\SaveLoadData\GameData.cs" />
     <Compile Include="Assets\Scripts\SkyDisk.cs" />
+    <Compile Include="Assets\Scripts\UI\IngameUI.cs" />
+    <Compile Include="Assets\Scripts\UI\MainMenu\CharacterPreview.cs" />
+    <Compile Include="Assets\Scripts\UI\MainMenu\MainMenuUI.cs" />
+    <Compile Include="Assets\Scripts\UI\SettingsMenuUI.cs" />
+    <Compile Include="Assets\Scripts\UI\ShopMenuUI.cs" />
     <Compile Include="Assets\Scripts\WorldGenerator.cs" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.8f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>

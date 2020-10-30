@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class WorldGenerator : MonoBehaviour
 {
+    public DataManager dataManager;
+
+    [SerializeField]
+    GameObject[] AllCharacters = new GameObject[3];
+
     [SerializeField]
     GameObject[] AllGameObjects = new GameObject[4];
 
@@ -12,35 +17,51 @@ public class WorldGenerator : MonoBehaviour
 
     private GameObject randomObject;
     private GameObject randomIsland;
-    public GameObject Player;
+    private GameObject player;
 
     private float firstObjectY;
-    private float objectY;
+    public static float objectY;
     private float objectStep;
+    private int spawnRange = 100;
 
     private float spawnLocation = 50;
 
-    private float X, Y, Z; // For the spawnable objects
+    private float X, Y, Z; // Position for the spawnable objects
 
-    void Start()
+    private void Awake()
     {
+        // Instantiate Player object
+        dataManager.Load();
+        if (dataManager.data.currentCharacter == "GlassBallCharacter")
+        {
+            Instantiate(AllCharacters[0], new Vector3(0, 100, 0), Quaternion.identity);
+        }
+        else if (dataManager.data.currentCharacter == "MagnetCharacter")
+        {
+            Instantiate(AllCharacters[1], new Vector3(0, 100, 0), Quaternion.identity);
+        }
+        else if(dataManager.data.currentCharacter == "TimeCharacter")
+        {
+            Instantiate(AllCharacters[2], new Vector3(0, 100, 0), Quaternion.identity);
+        }
 
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     void Update()
     {
         //spawns objects when player reaches a certain point on Y axis
-        if (GameObject.Find("Player").transform.position.y < spawnLocation)
+        if (player.transform.position.y < spawnLocation)
         {
             objectStep = 0; //resets Y value for the next random object
-            firstObjectY = GameObject.Find("Player").transform.position.y - 50; //the first location for the objects to spawn
+            firstObjectY = player.transform.position.y - 50; //the first location for the objects to spawn
             int numberOfObjects = 20;
-            objectY = 100 / numberOfObjects;    //object devided between 100f on Y axis
+            objectY = spawnRange / numberOfObjects;    //object devided between 100f on Y axis
             for (int i = 0; i < numberOfObjects; i++)
             {
                 InstantiateObject();
             }
-            spawnLocation -= 100; // sets new spawn location 
+            spawnLocation -= spawnRange; // sets new spawn location 
         }
     }
 
@@ -50,20 +71,21 @@ public class WorldGenerator : MonoBehaviour
 
         if (randomObject == AllGameObjects[2]) // Spawn coins only in reach of the player, not outside the boundries
         {
-            X = Random.Range(Player.GetComponent<Player>().minX, Player.GetComponent<Player>().maxX);
-            Z = Random.Range(Player.GetComponent<Player>().minZ, Player.GetComponent<Player>().maxZ);
+            X = Random.Range(player.GetComponent<Player>().minX, player.GetComponent<Player>().maxX);
+            Z = Random.Range(player.GetComponent<Player>().minZ, player.GetComponent<Player>().maxZ);
+        }
+        else
+        {
+            //sets a new Vector3 for the position of the random choosen object
+            X = Random.Range(-15 + randomObject.transform.localScale.x / 2, 15 + randomObject.transform.localScale.x / 2);
+            Z = Random.Range(-15 + randomObject.transform.localScale.z / 2, 15 + randomObject.transform.localScale.z / 2);
         }
         if (randomObject == AllGameObjects[0])// check if the random object is an Island
         {
             randomIsland = Islands[Random.Range(0, Islands.Length)];
             randomObject = randomIsland;
         }
-        else
-        {
-            //sets a new Vector3 for the position of the random choosen object
-            X = Random.Range(-10 + randomObject.transform.localScale.x / 2, 10 + randomObject.transform.localScale.x / 2);
-            Z = Random.Range(-10 + randomObject.transform.localScale.z / 2, 10 + randomObject.transform.localScale.z / 2);
-        }
+        
 
         Y = firstObjectY - objectStep;
 

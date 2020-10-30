@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &591001879745379440
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 591001879745379442}
+  - component: {fileID: 591001879745379443}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &591001879745379442
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 591001879745379440}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 271.51837, y: 128.41414, z: -139.5136}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &591001879745379443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 591001879745379440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8570887d7dddad64d87b2dd18de3923b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: ShopSFX
+    clip: {fileID: 8300000, guid: e35c1c331c28e1845bceb4e74a37b807, type: 3}
+    volume: 0.218
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: BackgroundMusic
+    clip: {fileID: 8300000, guid: ad0af6347bef1344386b308966978f28, type: 3}
+    volume: 0.248
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: BuyCharacter
+    clip: {fileID: 8300000, guid: df311ddd1b2a4384b88a1c88e60ff5e5, type: 3}
+    volume: 0.248
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Button
+    clip: {fileID: 8300000, guid: d1eacbcd17583ac4b986157aed28ae43, type: 3}
+    volume: 0.248
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: StartButton
+    clip: {fileID: 8300000, guid: 584686c6b023e4d4d835d601c42cc6ea, type: 3}
+    volume: 0.248
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: BrokenGlass
+    clip: {fileID: 8300000, guid: 903cd355dab5977488cefca366064367, type: 3}
+    volume: 0.337
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Impact
+    clip: {fileID: 8300000, guid: 19642477327e4a34ebae44878e8fd2f3, type: 3}
+    volume: 0.355
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8448806064865255488}
   - component: {fileID: 5955103495373018250}
   - component: {fileID: 5000493886006485685}
-  - component: {fileID: 5000493886006485684}
+  - component: {fileID: 4556596101181188583}
   m_Layer: 0
   m_Name: Object_Rocket
   m_TagString: Dangerous_Object
@@ -93,16 +93,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc1a5bdf730dc61409b8a8931947ec66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!65 &5000493886006485684
-BoxCollider:
+--- !u!64 &4556596101181188583
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5306431561309812063}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.0980897, y: 2.2546358, z: 2.0640087}
-  m_Center: {x: 0.010045205, y: -0.0073082037, z: 0.052282162}
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 1988216149656743765, guid: 2daa89ed3a5ef8e40ad5bb612edec2dd, type: 3}

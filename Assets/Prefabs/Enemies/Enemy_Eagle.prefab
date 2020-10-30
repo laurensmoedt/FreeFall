@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 2484516951783303612}
   - component: {fileID: 1573195068082611737}
   - component: {fileID: 3616931312883274451}
-  - component: {fileID: 2733824046797393488}
   - component: {fileID: 2733824046797393491}
+  - component: {fileID: 8113656574580587350}
   m_Layer: 0
   m_Name: Enemy_Eagle
   m_TagString: Dangerous_Object
@@ -81,19 +81,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &2733824046797393488
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2968179663757292294}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 70.84306, y: 15.392456, z: 26.076956}
-  m_Center: {x: -0.0809288, y: 11.45386, z: 3.4401488}
 --- !u!114 &2733824046797393491
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,3 +93,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a35f86c3194f0f24599291f8e126057c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!64 &8113656574580587350
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2968179663757292294}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 3353858901254911481, guid: 7ae779de5e941f94b881d90624886b0a, type: 3}

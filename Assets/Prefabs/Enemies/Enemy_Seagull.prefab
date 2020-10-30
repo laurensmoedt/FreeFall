@@ -280,9 +280,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8081309840672690385}
-  - component: {fileID: 8623316892786569440}
   - component: {fileID: 8623316892786569441}
   - component: {fileID: -7880299922236906692}
+  - component: {fileID: 3684033299264517916}
   m_Layer: 0
   m_Name: Enemy_Seagull
   m_TagString: Dangerous_Object
@@ -306,19 +306,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &8623316892786569440
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8893840530939202155}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.09370091, y: 0.017294312, z: 0.045121014}
-  m_Center: {x: -0.00066227914, y: 0.01978302, z: 0.004682988}
 --- !u!95 &8623316892786569441
 Animator:
   serializedVersion: 3
@@ -350,3 +337,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a35f86c3194f0f24599291f8e126057c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!64 &3684033299264517916
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8893840530939202155}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1995720272617593764, guid: e4133a0cc68b35c45b17e3661140c32e, type: 3}
