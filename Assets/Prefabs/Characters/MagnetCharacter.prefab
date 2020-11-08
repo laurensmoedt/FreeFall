@@ -106,13 +106,13 @@ Rigidbody:
   m_GameObject: {fileID: 2120271709156556800}
   serializedVersion: 2
   m_Mass: 0.01
-  m_Drag: 10
-  m_AngularDrag: 0.05
+  m_Drag: 5
+  m_AngularDrag: 0.5
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 0
+  m_Constraints: 0
+  m_CollisionDetection: 1
 --- !u!114 &1380518490175744104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,11 +125,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d504fe5440ab5b54caec40811d1d90bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CoinCount: 0
+  coinCount: 0
   score: 0
   minX: 0
   maxX: 0
   minZ: 0
   maxZ: 0
-  IngameUI: {fileID: 0}
-  dataManager: {fileID: 0}

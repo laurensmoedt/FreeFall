@@ -15,8 +15,8 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu's/Shop.unity
     guid: 5d84e49b894d2b641b79318fb8c30ba7
   - enabled: 1
-    path: Assets/Scenes/Game/Game.unity
+    path: Assets/Scenes/Game.unity
     guid: 886af6e37a4231743a800a74ab10d198
   m_configObjects:
-    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 1e9f718f8fe71214c904affcbef02a79,
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: c61c8b048a0605b48840c3051abbfb2f,
       type: 2}

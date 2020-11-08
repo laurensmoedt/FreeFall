@@ -1,24 +1,25 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using UnityEngine;
 
 public class DataManager : MonoBehaviour
 {
     public GameData data;
 
-    private string file = "GameData.txt";
+    private readonly string file = "GameData.txt";
+
+    private readonly int key = 6969;
 
     public void Save()
     {
         string json = JsonUtility.ToJson(data, true);
-        WriteToFile(file, json);
+        WriteToFile(file, SecureHelper.EncryptDecrypt(json, key));
     }
 
     public void Load()
     {
         data = new GameData();
         string json = ReadFromFile(file);
+        json = SecureHelper.EncryptDecrypt(json, key);
         JsonUtility.FromJsonOverwrite(json, data);
     }
 
@@ -50,8 +51,6 @@ public class DataManager : MonoBehaviour
                 return json;
             }
         }
-        else
-            Debug.LogWarning("File not found!");
 
         return "";
     }

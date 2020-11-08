@@ -1,15 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
-    void Start()
-    {
-        
-    }
-
-    void Update()
+    private void FixedUpdate()
     {
         transform.Rotate(90 * Time.deltaTime, 0, 0);
 
@@ -21,9 +14,10 @@ public class Coin : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if(other.name == "Player")
+        if(other.tag == "Player")
         {
-            other.GetComponent<Player>().CoinCount++;
+            other.GetComponent<Player>().coinCount++;
+            FindObjectOfType<AudioManager>().Play("CoinPickup");
             Destroy(gameObject);
         }
     }

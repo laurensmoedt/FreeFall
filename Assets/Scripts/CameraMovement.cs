@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Animations;
+﻿using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
@@ -12,13 +9,14 @@ public class CameraMovement : MonoBehaviour
 
     private void Awake()
     {
+        //Initialize a gameobject, then make a transform out of that gameobject
         playerObject = GameObject.FindGameObjectWithTag("Player");
         lookAt = playerObject.GetComponent<Transform>();
     }
-    void Update()
+    private void Update()
     {
+        //Move the camera with the player position
         Vector3 playerPos = lookAt.transform.position + offset;
-
         transform.position = new Vector3(playerPos.x / 5 , playerPos.y, playerPos.z / 5);
     }
 }

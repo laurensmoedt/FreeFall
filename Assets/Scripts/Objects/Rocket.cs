@@ -1,17 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Rocket : MonoBehaviour
 {
-    void Start()
+    private void FixedUpdate()
     {
-        
-    }
-
-    void Update()
-    {
-        transform.Translate(0, 5 * Time.deltaTime, 0, Space.Self);
+        transform.Translate(0, 60 * Time.deltaTime, 0, Space.Self);
 
         DestroyObject();
     }

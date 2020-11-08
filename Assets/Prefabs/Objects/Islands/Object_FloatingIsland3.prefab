@@ -27,8 +27,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3174767571665181129}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8.95, y: 85.26951, z: -5.22}
-  m_LocalScale: {x: 2.5, y: 2, z: 2.5000002}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 5141167683957623435}
   - {fileID: 5141167683497214078}
@@ -48,7 +48,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3174767571665181129}
-  m_Mesh: {fileID: 289301614986012343, guid: 989ea9cff95bbab49b6c1f7d75aa0fd4, type: 3}
+  m_Mesh: {fileID: 4961334456903682143, guid: ee8f638ed7a1ad14dac8891dd41972aa, type: 3}
 --- !u!23 &3967660521932978204
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -67,7 +67,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 4638008192267078544, guid: 989ea9cff95bbab49b6c1f7d75aa0fd4, type: 3}
+  - {fileID: 6220529279933208525, guid: ee8f638ed7a1ad14dac8891dd41972aa, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -101,7 +101,7 @@ MeshCollider:
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: 289301614986012343, guid: 989ea9cff95bbab49b6c1f7d75aa0fd4, type: 3}
+  m_Mesh: {fileID: 4961334456903682143, guid: ee8f638ed7a1ad14dac8891dd41972aa, type: 3}
 --- !u!64 &184444233884512152
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -212,6 +212,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_Dead_1
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 505e7ce66f5936548b48bbdd4afd6d3d,
+        type: 3}
+      propertyPath: m_TagString
+      value: Dangerous_Object
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 505e7ce66f5936548b48bbdd4afd6d3d, type: 3}
 --- !u!1 &5481664047205273649 stripped
@@ -308,6 +313,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rock_Small (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2f7be33e258c1ba4b8d1ae8538339fae,
+        type: 3}
+      propertyPath: m_TagString
+      value: Dangerous_Object
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f7be33e258c1ba4b8d1ae8538339fae, type: 3}
 --- !u!4 &5141167683674653624 stripped
@@ -382,6 +392,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Rock_Small (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2f7be33e258c1ba4b8d1ae8538339fae,
+        type: 3}
+      propertyPath: m_TagString
+      value: Dangerous_Object
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f7be33e258c1ba4b8d1ae8538339fae, type: 3}
@@ -473,6 +488,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tree_Oak_2
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 95f6b01b28ac3594aa7f91c651a6f22e,
+        type: 3}
+      propertyPath: m_TagString
+      value: Dangerous_Object
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 95f6b01b28ac3594aa7f91c651a6f22e, type: 3}
 --- !u!1 &5481664047531268804 stripped
@@ -553,6 +573,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Rock_Small
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2f7be33e258c1ba4b8d1ae8538339fae,
+        type: 3}
+      propertyPath: m_TagString
+      value: Dangerous_Object
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f7be33e258c1ba4b8d1ae8538339fae, type: 3}
@@ -644,6 +669,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rock_Small (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2f7be33e258c1ba4b8d1ae8538339fae,
+        type: 3}
+      propertyPath: m_TagString
+      value: Dangerous_Object
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f7be33e258c1ba4b8d1ae8538339fae, type: 3}
 --- !u!4 &5141167682850268064 stripped
@@ -734,6 +764,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rock_Small (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2f7be33e258c1ba4b8d1ae8538339fae,
+        type: 3}
+      propertyPath: m_TagString
+      value: Dangerous_Object
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f7be33e258c1ba4b8d1ae8538339fae, type: 3}
 --- !u!4 &5141167682548056163 stripped
@@ -823,6 +858,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Rock_Small (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2f7be33e258c1ba4b8d1ae8538339fae,
+        type: 3}
+      propertyPath: m_TagString
+      value: Dangerous_Object
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f7be33e258c1ba4b8d1ae8538339fae, type: 3}

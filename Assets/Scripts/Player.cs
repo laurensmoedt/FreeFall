@@ -1,77 +1,71 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Threading;
-using UnityEngine;
-using UnityEngine.EventSystems;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
     // Ingame coin amount
-    public int CoinCount = 0;
+    public int coinCount = 0;
 
     // Player score
     public int score = 0;
     private float scorePoint;
 
-    private float Movespeed = 2f;
-    private float maxMoveSpeed = 5f;
+    private float movespeed = 5f;
+    private float maxMoveSpeed = 9f;
 
+    // RigidBody & Movement for the RB
     private Rigidbody rb;
     private Vector3 movement;
 
-    private float gravityScale = -2f;
+    // Set the gravity
+    private float gravityScale = -8f;
 
+    // Set the boundaries for the player relative to the camera screen
     public float minX, maxX, minZ, maxZ;
     private Vector3 CurrentCameraPos;
 
     // Magnet Character Power
-    GameObject[] Coins;
     Transform[] transformCoins;
-    private bool MagnetPowerAvailable = true;
+    private bool magnetPowerAvailable = true;
     private float magnetPowerTime = 5f;
     private float magnetTimer = 10f;
-    private bool MagnetPowerActive;
+    private bool magnetPowerActive;
 
     // Time Character Power
     private float fixedDeltaTime;
-    private float TimepowerTime = 10f;
-    private float Timetimer = 1f;
-    private bool TimePowerAvailable = true;
+    private float timepowerTime = 10f;
+    private float timetimer = 1f;
+    private bool timePowerAvailable = true;
 
     // UI
     private Slider powerBar;
     private float powerBarValue = 10f;
-    private GameObject IngameUIObject;
-    public IngameUI IngameUI;
+    private GameObject ingameUIObject;
+    private IngameUI ingameUI;
 
     // Data Manager
     private GameObject dataManagerObject;
-    public DataManager dataManager;
+    private DataManager dataManager;
     private string currentCharacter;
 
-    void Start()
+    private void Start()
     {
         //UI
-        IngameUIObject = GameObject.Find("UI");
-        IngameUI = IngameUIObject.GetComponent<IngameUI>();
+        ingameUIObject = GameObject.Find("UI");
+        ingameUI = ingameUIObject.GetComponent<IngameUI>();
 
-        //Data Manger
+        //Data Manger initialized in class, because player is initialized after UI
         dataManagerObject = GameObject.Find("DataManager");
         dataManager = dataManagerObject.GetComponent<DataManager>();
-
-        rb = this.GetComponent<Rigidbody>();
-
-        this.fixedDeltaTime = Time.fixedDeltaTime;
-
         dataManager.Load();
         currentCharacter = dataManager.data.currentCharacter;
 
-        // UI power bar
+        rb = this.GetComponent<Rigidbody>();
+
+        //Delta time for slowing down time with time character's power
+        fixedDeltaTime = Time.fixedDeltaTime;
+
+        //UI power bar
         powerBar = GameObject.Find("PowerBar").GetComponent<Slider>();
         powerBar.minValue = 0f;
 
@@ -79,50 +73,64 @@ public class Player : MonoBehaviour
             powerBar.maxValue = 5f;
         else if (currentCharacter == "TimeCharacter")
             powerBar.maxValue = 10f;
-        powerBar.value = powerBarValue;
 
-        // Player Score
+        if (currentCharacter != "GlassCubeCharacter")
+            powerBar.value = powerBarValue;
+        else
+        {
+            powerBar.value = 0f;
+            GameObject.FindGameObjectWithTag("PowerText").GetComponent<Text>().text = "";
+        }
+
+        //Player Score start count position
         scorePoint = this.transform.position.y - 50;
 
-        Boundries();
+        Boundaries();
     }
 
-    void Update()
+    private void Update()
     {
-        gravityScale -= 0.005f;
-        transform.position -= Vector3.down * gravityScale * Time.deltaTime;
-
-        // Get the player input for the player movement
+        //Get the player input for the player movement
         movement = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
-        // Player movement
-        Movement(movement);
-
-        // Calculate player movement boundries on screen
-        CalculateBoundries();
-
-        // Controls the power of the character that is selected
         Power(currentCharacter);
+    }
 
-        // Add a Score
+    private void FixedUpdate()
+    {
+        //Falling speed increasing
+        gravityScale -= 0.02f;
+        transform.position -= Vector3.down * gravityScale * Time.deltaTime;
+
+        Movement(movement);
+        CalculateBoundries();
         AddScore();
     }
 
-    void Movement(Vector3 direction)
+    private void Movement(Vector3 direction)
     {
+        //Acceleration until max speed is reached
         if (rb.velocity.magnitude > maxMoveSpeed)
         {
             rb.velocity = rb.velocity.normalized * maxMoveSpeed;
         }
-        rb.AddForce(direction * Movespeed);
+
+        //Rotation of the player
+        Vector3 torqueRotation = new Vector3(0, Input.GetAxis("Vertical"), Input.GetAxis("Horizontal"));
+        rb.AddTorque(torqueRotation * -movespeed);
+
+        //Movement of the player
+        rb.AddForce(direction * movespeed);
     }
 
     private void OnCollisionEnter(Collision other)
     {
+        //Check for collision with objects with tag
         if (other.gameObject.tag == "Dangerous_Object")
         {
+            //Save data of this round and show restart screen
             SaveData();
-            IngameUI.RestartScreen();
+            ingameUI.RestartScreen();
         }
     }
 
@@ -131,18 +139,22 @@ public class Player : MonoBehaviour
         CurrentCameraPos = Camera.main.transform.position;
         Vector3 currentPosition = transform.position;
 
+        //Player cannot move beyond max and min value
         currentPosition.x = Mathf.Clamp(currentPosition.x, minX + (CurrentCameraPos.x), maxX + (CurrentCameraPos.x));
         currentPosition.z = Mathf.Clamp(currentPosition.z, minZ + (CurrentCameraPos.z), maxZ + (CurrentCameraPos.z));
 
         transform.position = currentPosition;
     }
 
-    private void Boundries()
+    private void Boundaries()
     {
+        //Get the distance between the player and camera
         float camDistance = Vector3.Distance(transform.position, Camera.main.transform.position);
+
         Vector3 bottomCorners = Camera.main.ViewportToWorldPoint(new Vector3(0f, 0f, camDistance));
         Vector3 topCorners = Camera.main.ViewportToWorldPoint(new Vector3(1f, 1f, camDistance));
 
+        //Get the min and max value of the screen display
         minX = bottomCorners.x;
         maxX = topCorners.x;
 
@@ -155,27 +167,29 @@ public class Player : MonoBehaviour
         // Magnet Power for the Magnet Character
         if (CurrentCharacter == "MagnetCharacter")
         {
-            if (Input.GetKeyDown(KeyCode.LeftShift) && MagnetPowerAvailable == true)
+            if (Input.GetKeyDown(KeyCode.LeftShift) && magnetPowerAvailable == true)
             {
-                MagnetPowerActive = true;
+                magnetPowerActive = true;
             }
-            if (MagnetPowerActive == true)
+            if (magnetPowerActive == true)
             {
                 GetCoinsInactiveInRadius();
-                magnetPowerTime -= 0.01f;
-                magnetTimer = 10f;
+                magnetPowerTime -= 0.2f * Time.fixedDeltaTime;       //Decrease power when using power
+                magnetTimer = 10f;              //Set a timer for when magnet power is out of use
             }
             if (magnetPowerTime <= 0)
             {
-                MagnetPowerActive = false;
-                MagnetPowerAvailable = false;
-                magnetTimer -= 0.01f;
+                magnetPowerActive = false;      //Set active to false so that the player cannot activate the power when there is no power
+                magnetPowerAvailable = false;
+                magnetTimer -= 0.2f * Time.fixedDeltaTime;           //Decrease the timer
                 if (magnetTimer <= 0)
                 {
-                    MagnetPowerAvailable = true;
+                    //Set the magnet power able to be activated again
+                    magnetPowerAvailable = true;
                 }
-                if (magnetPowerTime < 5 && MagnetPowerAvailable == true)
+                if (magnetPowerTime < 5 && magnetPowerAvailable == true)
                 {
+                    //Set power time of magnet to max when magnet power is available again
                     magnetPowerTime = 5f;
                 }
             }
@@ -187,76 +201,87 @@ public class Player : MonoBehaviour
         // Time Power for the Time Character
         else if (CurrentCharacter == "TimeCharacter")
         {
-            if (Input.GetKey(KeyCode.LeftShift) && TimepowerTime > 0)
+            if (Time.timeScale == 0) { return; };
+            if (Input.GetKey(KeyCode.LeftShift) && timepowerTime > 0)
             {
+                //Slows down time by half
                 if (Time.timeScale == 1.0f)
                     Time.timeScale /= 2;
-                TimepowerTime -= 0.01f;
-                Timetimer = 1f;
+                //Decrease power time when using
+                timepowerTime -= 0.4f * Time.fixedDeltaTime;
+                //Set Power recharge time
+                timetimer = 1f;
             }
             else
             {
+                //Set timescale to normal when not using power
                 Time.timeScale = 1.0f;
-                TimePowerAvailable = false;
-                Timetimer -= 0.01f;
-                if (Timetimer <= 0)
+                timePowerAvailable = false;
+                timetimer -= 0.2f * Time.fixedDeltaTime;
+                if (timetimer <= 0)
                 {
-                    TimePowerAvailable = true;
+                    //If recharge timer reaches the end, make the player able to use power again
+                    timePowerAvailable = true;
                 }
-                if (TimepowerTime < 10 && TimePowerAvailable == true)
+                if (timepowerTime < 10 && timePowerAvailable == true)
                 {
-                    TimepowerTime += 0.01f;
+                    //If recharge timer reaches the end, recharge the power by a certain amount
+                    timepowerTime += 0.2f * Time.fixedDeltaTime;
                 }
             }
-            Time.fixedDeltaTime = this.fixedDeltaTime * Time.timeScale;
+            //Update the deltatime
+            Time.fixedDeltaTime = fixedDeltaTime * Time.timeScale;
 
-            // UI power bar
-            powerBarValue = TimepowerTime;
+            //UI power bar
+            powerBarValue = timepowerTime;
             powerBar.value = powerBarValue;
         }
     }
 
     private void GetCoinsInactiveInRadius()
     {
-        Coins = GameObject.FindGameObjectsWithTag("Coin");
+        //Find all coins with tag "Coin"
+        GameObject[] coins = GameObject.FindGameObjectsWithTag("Coin");
 
-        transformCoins = new Transform[Coins.Length];
-        for (int i = 0; i < Coins.Length; i++)
-        {
-            transformCoins[i] = Coins[i].transform;
-        }
+        //Make a transform array with all found coin gameobjects
+        transformCoins = new Transform[coins.Length];
 
+        //convert all gameobject coins into transforms
+        for (int i = 0; i < coins.Length; i++)
+            transformCoins[i] = coins[i].transform;
+
+        //Calculate if a transform coin is in range of the player, so yes, move the coin towards the player
         foreach (Transform coin in transformCoins)
         {
             float distanceSqr = (transform.position - coin.position).sqrMagnitude;
-            if (distanceSqr < 50f)
+            if (distanceSqr < 100f)
             {
-                coin.position = Vector3.MoveTowards(coin.position, transform.position, 0.5f);
+                coin.position = Vector3.MoveTowards(coin.position, transform.position, -gravityScale * Time.fixedDeltaTime);
             }
         }
     }
 
     private void AddScore()
     {
+        //If player reaches scorepoint, add a point to score
         if (this.transform.position.y < scorePoint)
         {
             score++;
-            scorePoint = this.transform.position.y - WorldGenerator.objectY;
+            //Set the next score position
+            scorePoint = this.transform.position.y - WorldGenerator.objectYdifference;
         }
     }
 
     private void SaveData()
     {
         // Save coins to json
-        dataManager.data.coins += CoinCount;
+        dataManager.data.coins += coinCount;
 
         // Save Highscore to json
         if (score > dataManager.data.highScore)
         {
             dataManager.data.highScore = score;
-            Debug.Log("new highscore!!!!" + score);
         }
-
         dataManager.Save();
     }
 }

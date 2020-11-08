@@ -1,14 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
     private GameObject player;
 
-    void Start()
+    private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+
         //random rotation
         int randomDegree = Random.Range(0,360);
         transform.Rotate(0, randomDegree, 0);
@@ -17,17 +16,17 @@ public class Enemy : MonoBehaviour
         transform.Translate(0, 0, -20);
     }
 
-    void Update()
+    private void FixedUpdate()
     {
-        if(player.transform.position.y < this.transform.position.y + 50)
+        //Move object only when the playe is close
+        if(player.transform.position.y < this.transform.position.y + 100)
         {
             MoveObject();
         }
-        
         DestroyObject();
     }
 
-    public void MoveObject()
+    private void MoveObject()
     {
         //move forward relative to rotation
         transform.Translate(0, 0, 5 * Time.deltaTime, Space.Self);

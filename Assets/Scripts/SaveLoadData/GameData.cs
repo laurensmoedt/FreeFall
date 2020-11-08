@@ -1,11 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class GameData : MonoBehaviour
+﻿public class GameData
 {
     public string playerName = "";
-    public string currentCharacter = "GlassBallCharacter";
+    public string currentCharacter = "GlassCubeCharacter";
     
     public int coins = 0;
     public int highScore = 0;

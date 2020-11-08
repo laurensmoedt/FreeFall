@@ -1,17 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Island : MonoBehaviour
 {
-    void Start()
+    private void Update()
     {
-        
-    }
-
-    void Update()
-    {
-        SpawnObject();
         DestroyObject();
     }
 
@@ -22,11 +14,5 @@ public class Island : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
-
-    private void SpawnObject()
-    {
-        // spawn tree and rock on Island with random location
-
     }
 }

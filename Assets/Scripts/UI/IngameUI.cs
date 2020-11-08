@@ -1,49 +1,56 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
 
 public class IngameUI : MonoBehaviour
 {
-    public DataManager dataManager;
-    public HighscoreTable highscoreTable;
+    [SerializeField]
+    DataManager dataManager = null;
+
+    [SerializeField]
+    HighscoreTable highscoreTable = null;
 
     // Ingame overlay
     private Player player;
     private GameObject playerObject;
 
-    public Text coins;
-    public Text score;
+    public Text coins = null;
+
+    public Text score = null;
 
     // Restart sceen
-    public Canvas restartCanvas;
+    [SerializeField]
+    GameObject restartCanvas = null;
 
     private void Start()
     {
         playerObject = GameObject.FindGameObjectWithTag("Player");
         player = playerObject.GetComponent<Player>();
+
         dataManager.Load();
-        restartCanvas.GetComponent<CanvasScaler>().scaleFactor = 0;
+
+        //Deactivate restart menu overlay
+        restartCanvas.SetActive(false);
     }
 
     private void Update()
     {
-        coins.text = player.CoinCount.ToString();
-        score.text = player.score.ToString();
+        coins.text = "COINS: " + player.coinCount.ToString();
+        score.text = "SCORE: " + player.score.ToString();
     }
 
     public void RestartScreen()
     {
-        if (dataManager.data.currentCharacter == "GlassBallCharacter")
+        if (dataManager.data.currentCharacter == "GlassCubeCharacter")
         {
             FindObjectOfType<AudioManager>().Play("BrokenGlass");
         }
         else
             FindObjectOfType<AudioManager>().Play("Impact");
-        restartCanvas.GetComponent<CanvasScaler>().scaleFactor = 1;
+
+        restartCanvas.SetActive(true);
         highscoreTable.AddHighscoreEntry(dataManager.data.highScore, dataManager.data.playerName);
+        //Stop the game from playing
         Time.timeScale = 0f;
     }
 

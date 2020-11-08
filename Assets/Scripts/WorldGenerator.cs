@@ -4,25 +4,27 @@ using UnityEngine;
 
 public class WorldGenerator : MonoBehaviour
 {
-    public DataManager dataManager;
+    [SerializeField]
+    DataManager dataManager = null;
 
     [SerializeField]
-    GameObject[] AllCharacters = new GameObject[3];
+    GameObject[] allCharacters = null;
 
     [SerializeField]
-    GameObject[] AllGameObjects = new GameObject[4];
+    GameObject[] allGameObjects = null;
 
     [SerializeField]
-    GameObject[] Islands = new GameObject[4];
+    GameObject[] islands = null;
+
+    private GameObject player;
 
     private GameObject randomObject;
     private GameObject randomIsland;
-    private GameObject player;
 
     private float firstObjectY;
-    public static float objectY;
+    public static float objectYdifference;
     private float objectStep;
-    private int spawnRange = 100;
+    private readonly int spawnRange = 100;
 
     private float spawnLocation = 50;
 
@@ -30,33 +32,36 @@ public class WorldGenerator : MonoBehaviour
 
     private void Awake()
     {
-        // Instantiate Player object
+        //load data from data manager
         dataManager.Load();
-        if (dataManager.data.currentCharacter == "GlassBallCharacter")
+
+        //Check for which character is active, then instantiate them onto the screen
+        if (dataManager.data.currentCharacter == "GlassCubeCharacter")
         {
-            Instantiate(AllCharacters[0], new Vector3(0, 100, 0), Quaternion.identity);
+            Instantiate(allCharacters[0], new Vector3(0, 100, 0), Quaternion.identity);
         }
         else if (dataManager.data.currentCharacter == "MagnetCharacter")
         {
-            Instantiate(AllCharacters[1], new Vector3(0, 100, 0), Quaternion.identity);
+            Instantiate(allCharacters[1], new Vector3(0, 100, 0), Quaternion.identity);
         }
         else if(dataManager.data.currentCharacter == "TimeCharacter")
         {
-            Instantiate(AllCharacters[2], new Vector3(0, 100, 0), Quaternion.identity);
+            Instantiate(allCharacters[2], new Vector3(0, 100, 0), Quaternion.identity);
         }
 
+        // Find player object
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
-    void Update()
+    private void FixedUpdate()
     {
-        //spawns objects when player reaches a certain point on Y axis
+        //spawn a certain amount of objects when player reaches spawnLocation
         if (player.transform.position.y < spawnLocation)
         {
-            objectStep = 0; //resets Y value for the next random object
-            firstObjectY = player.transform.position.y - 50; //the first location for the objects to spawn
+            objectStep = 0f; //resets Y value for when a new spawn point has been reached
+            firstObjectY = player.transform.position.y - 100f; //the first location for the objects to spawn
             int numberOfObjects = 20;
-            objectY = spawnRange / numberOfObjects;    //object devided between 100f on Y axis
+            objectYdifference = spawnRange / numberOfObjects;    //object devided between 100f on Y axis
             for (int i = 0; i < numberOfObjects; i++)
             {
                 InstantiateObject();
@@ -67,32 +72,31 @@ public class WorldGenerator : MonoBehaviour
 
     private void InstantiateObject()
     {
-        randomObject = AllGameObjects[Random.Range(0, AllGameObjects.Length)]; //picks a random object out of the list
+        randomObject = allGameObjects[Random.Range(0, allGameObjects.Length)]; //picks a random object out of the list
 
-        if (randomObject == AllGameObjects[2]) // Spawn coins only in reach of the player, not outside the boundries
+        if (randomObject == allGameObjects[2]) // Spawn coins only in reach of the player, not outside the boundries
         {
             X = Random.Range(player.GetComponent<Player>().minX, player.GetComponent<Player>().maxX);
             Z = Random.Range(player.GetComponent<Player>().minZ, player.GetComponent<Player>().maxZ);
         }
         else
         {
-            //sets a new Vector3 for the position of the random choosen object
-            X = Random.Range(-15 + randomObject.transform.localScale.x / 2, 15 + randomObject.transform.localScale.x / 2);
-            Z = Random.Range(-15 + randomObject.transform.localScale.z / 2, 15 + randomObject.transform.localScale.z / 2);
+            //sets new X and Z value for the position of the random choosen object
+            X = Random.Range(player.GetComponent<Player>().minX * 2, player.GetComponent<Player>().maxX * 2);
+            Z = Random.Range(player.GetComponent<Player>().minZ * 2, player.GetComponent<Player>().maxZ * 2);
         }
-        if (randomObject == AllGameObjects[0])// check if the random object is an Island
+        if (randomObject == allGameObjects[0])// check if the random object is an Island
         {
-            randomIsland = Islands[Random.Range(0, Islands.Length)];
+            randomIsland = islands[Random.Range(0, islands.Length)];
             randomObject = randomIsland;
         }
         
-
         Y = firstObjectY - objectStep;
 
         Vector3 pos = new Vector3(X, Y, Z);
 
         //instantiate the random object with position and rotation onto the scene
         Instantiate(randomObject, pos, Quaternion.identity);
-        objectStep += objectY; // adds Y value for the next random object
+        objectStep += objectYdifference; // adds Y value for the next random object
     }
 }

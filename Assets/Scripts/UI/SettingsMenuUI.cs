@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
@@ -8,12 +6,17 @@ public class SettingsMenuUI : MonoBehaviour
 {
     public DataManager dataManager;
 
-    public Slider volume;
-    public Text volumePercentage;
+    [SerializeField]
+    Slider volume =null;
 
-    void Start()
+    [SerializeField]
+    Text volumePercentage = null;
+
+    private void Start()
     {
         dataManager.Load();
+
+        //Check if the volume has already been changed before
         if (PlayerPrefs.HasKey("GameVolume"))
         {
             volume.value = PlayerPrefs.GetFloat("GameVolume");
@@ -24,7 +27,7 @@ public class SettingsMenuUI : MonoBehaviour
 
     private void Update()
     {
-        volumePercentage.text = Mathf.Round(volume.value * 100).ToString();
+        volumePercentage.text = Mathf.Round(volume.value * 100).ToString() + "%";
         AudioListener.volume = volume.value;
     }
 
@@ -35,11 +38,11 @@ public class SettingsMenuUI : MonoBehaviour
         PlayerPrefs.SetFloat("GameVolume", AudioListener.volume);
     }
 
-    public void Reset()
+    public void ResetGame()
     {
+        //Resets all the game data and all the player prefs
         FindObjectOfType<AudioManager>().Play("Button");
         dataManager.DeleteFile();
         PlayerPrefs.DeleteAll();
-        Debug.Log("Your game has been reset");
     }
 }

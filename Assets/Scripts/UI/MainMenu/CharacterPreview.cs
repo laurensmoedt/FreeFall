@@ -1,29 +1,27 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CharacterPreview : MonoBehaviour
 {
     public DataManager dataManager;
 
     [SerializeField]
-    Mesh[] mMeshes;
+    Mesh[] mMeshes = null;
 
     [SerializeField]
-    Material[] materials;
+    Material[] materials = null;
 
     private MeshFilter mFilter;
     private MeshRenderer mRenderer;
 
-    void Start()
+    private void Awake()
     {
+        dataManager.Load();
+
         mFilter = GetComponent<MeshFilter>();
         mRenderer = GetComponent<MeshRenderer>();
-    }
-    private void Update()
-    {
-        if (dataManager.data.currentCharacter == "GlassBallCharacter")
+
+        //Check which character is active and change the object properties accordingly
+        if (dataManager.data.currentCharacter == "GlassCubeCharacter")
         {
             mFilter.mesh = mMeshes[0];
             mRenderer.material = materials[0];
